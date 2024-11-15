@@ -5,11 +5,11 @@ build-backend = "hatchling.build"
 [project]
 name = "lambda-dev-server"
 dynamic = ["version"]
-description = ''
+description = 'A simple development server for AWS Lambda functions'
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = ['aws', 'lambda', 'server', 'development']
 authors = [
   { name = "Flavio Amurrio", email = "25621374+FlavioAmurrioCS@users.noreply.github.com" },
 ]
@@ -29,6 +29,7 @@ dependencies = []
 [tool.hatch.envs.hatch-test]
 extra-dependencies = [
   "typing-extensions",
+  "uvicorn",
 ]
 
 [project.urls]
@@ -37,7 +38,7 @@ Issues = "https://github.com/FlavioAmurrioCS/lambda-dev-server/issues"
 Source = "https://github.com/FlavioAmurrioCS/lambda-dev-server"
 
 [project.scripts]
-lambda-serve = "lambda_dev_server.__main__:main"
+lambda-dev-server = "lambda_dev_server.__main__:main"
 
 [tool.hatch.version]
 source = "vcs"

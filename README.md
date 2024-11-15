@@ -4,17 +4,30 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/lambda-dev-server.svg)](https://pypi.org/project/lambda-dev-server)
 
 -----
-A lightweight development server for AWS Lambda, lambda-dev-server emulates the Lambda environment locally by creating events and contexts for any app handler. It processes requests, generates Lambda events, and returns parsed responses—ideal for development and debugging, with hot-reloading for rapid iteration. Not intended for production use.
+
+A lightweight development server for AWS Lambda, `lambda-dev-server` emulates the Lambda environment locally by creating events and contexts for any app handler. It processes requests, generates Lambda events, and returns parsed responses—ideal for development and debugging, with hot-reloading for rapid iteration. Not intended for production use. This has been tested with lambdas that use `aws-lambda-powertools` as well with lambdas that return in the shape of `{"statusCode": 200, "body": "Hello World"}`.
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [License](#license)
+- [lambda-dev-server](#lambda-dev-server)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
 
 ## Installation
 
-```console
+To install `lambda-dev-server`, use pip:
+
+```sh
 pip install lambda-dev-server
+```
+
+## Usage
+
+```bash
+# Given a Lambda handler named handler in app.py
+lambda-dev-server app.handler
 ```
 
 ## License
