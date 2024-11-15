@@ -13,6 +13,7 @@ A lightweight development server for AWS Lambda, `lambda-dev-server` emulates th
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Debbuging](#debbuging)
   - [License](#license)
 
 ## Installation
@@ -28,6 +29,23 @@ pip install lambda-dev-server
 ```bash
 # Given a Lambda handler named handler in app.py
 lambda-dev-server app.handler
+```
+
+## Debbuging
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lambda_dev_server",
+      "args": ["app.handler"]
+    }
+  ]
+}
 ```
 
 ## License

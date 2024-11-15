@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 _version.py
 .ruff_cache
+__TEMP_LAMBDA_DEV_SERVER_HELPER_DO_NOT_CHECK_INTO_GIT__*
