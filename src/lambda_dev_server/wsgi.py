@@ -6,11 +6,6 @@ from typing import NamedTuple
 from typing import TYPE_CHECKING
 from urllib.parse import parse_qs
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s: %(message)s",
-)
-
 if TYPE_CHECKING:
     from wsgiref.simple_server import WSGIServer
 

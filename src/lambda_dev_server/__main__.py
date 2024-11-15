@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 __HELPER_FILE_PREFIX = "__TEMP_LAMBDA_DEV_SERVER_HELPER_DO_NOT_CHECK_INTO_GIT__"
 
 
@@ -83,7 +85,14 @@ def main(argv: list[str] | tuple[str, ...] | None = None) -> int:
     try:
         run_uvicorn(package=package, module=module, host=host, port=port)
     except ModuleNotFoundError:
+        logging.info("uvicorn not found, falling back to wsgiref")
+        logging.info("Install uvicorn for hot-reloading support")
+    else:
+        return 0
+    try:
         run_wsgi(package=package, module=module, host=host, port=port)
+    except KeyboardInterrupt:
+        logging.info("Shutting down...")
 
     return 0
 
