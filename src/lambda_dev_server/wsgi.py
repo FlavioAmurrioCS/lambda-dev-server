@@ -67,13 +67,13 @@ class WSGILambdaServer(NamedTuple):
         if isinstance(handler_response, dict) and "statusCode" in handler_response:
             return handler_response
         import json
+
         return {
             "statusCode": 200,
             "body": json.dumps(handler_response, default=str),
             "headers": {"Content-Type": "text/plain"},
             "isBase64Encoded": False,
         }
-
 
     def __call__(self, environ: Environ, start_response: StartResponse) -> Iterable[bytes]:
         response = self.call_handler(environ)
