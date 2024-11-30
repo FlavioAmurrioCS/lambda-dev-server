@@ -26,9 +26,11 @@ def run_uvicorn(*, package: str, module: str, host: str, port: int) -> None:
     wsgi_app = "wsgi_app"
     file_content = dedent(f"""\
         from {package} import {module} as handler
-        from lambda_dev_server.wsgi import WSGILambdaServer
+        from lambda_dev_server.wsgi import SimpleLambdaHandler
+        from lambda_dev_server.simple_server import SimpleServer
 
-        {wsgi_app} = WSGILambdaServer(handler)
+        simple_lambda_handler = SimpleLambdaHandler(handler)
+        {wsgi_app} = SimpleServer(simple_lambda_handler.handle)
     """)
 
     with tempfile.NamedTemporaryFile(
@@ -43,11 +45,13 @@ def run_uvicorn(*, package: str, module: str, host: str, port: int) -> None:
 
 
 def run_wsgi(*, package: str, module: str, host: str, port: int) -> None:
-    from lambda_dev_server.wsgi import WSGILambdaServer
+    from lambda_dev_server.wsgi import SimpleLambdaHandler
+    from lambda_dev_server.simple_server import SimpleServer
 
     mod = __import__(package, fromlist=["_trash"])
     handler = getattr(mod, module)
-    wsgi_app = WSGILambdaServer(handler)
+    simple_lambda_handler = SimpleLambdaHandler(handler)
+    wsgi_app = SimpleServer(simple_lambda_handler.handle)
     wsgi_app.serve_forever(host=host, port=port)
 
 
