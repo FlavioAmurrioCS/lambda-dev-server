@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from collections.abc import MutableMapping
     from collections.abc import Iterator
     from typing import Any, Iterable
     from typing_extensions import TypedDict
@@ -104,7 +105,7 @@ if TYPE_CHECKING:
         body: str
         statusCode: int
         isBase64Encoded: bool
-        headers: Mapping[str, str]
+        headers: MutableMapping[str, str]
 
     class LambdaHttpHandler(Protocol):
         def __call__(
