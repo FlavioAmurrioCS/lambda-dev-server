@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from typing_extensions import TypedDict
     from typing_extensions import Protocol
     from typing_extensions import TypeAlias
+    from typing_extensions import NotRequired
     from typing import Callable
 
     from types import TracebackType
@@ -101,11 +102,13 @@ if TYPE_CHECKING:
         queryStringParameters: Mapping[str, str]
         multiValueQueryStringParameters: Mapping[str, list[str]]
 
+    # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
     class LambdaHttpResponse(TypedDict):
         body: str
         statusCode: int
         isBase64Encoded: bool
-        headers: MutableMapping[str, str]
+        headers: NotRequired[MutableMapping[str, str]]
+        multiValueHeaders: NotRequired[MutableMapping[str, list[str]]]
 
     class LambdaHttpHandler(Protocol):
         def __call__(

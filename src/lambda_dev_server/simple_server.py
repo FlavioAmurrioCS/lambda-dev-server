@@ -57,6 +57,8 @@ class SimpleServer(NamedTuple):
         }
 
     def _clean_headers(self, headers: MutableMapping[str, str]) -> None:
+        # Need to remove hop-by-hop headers
+        # https://github.com/python/cpython/blob/24b147a19b360c49cb1740aa46211d342aaa071f/Lib/wsgiref/util.py#L151
         for k in (
             "connection",
             "keep-alive",

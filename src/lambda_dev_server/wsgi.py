@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import gzip
 from typing import NamedTuple
 from typing import TYPE_CHECKING
 
@@ -35,14 +37,27 @@ class SimpleLambdaHandler(NamedTuple):
         }
         context = LambdaContextTuple()
         handler_response = self.handler(lambda_event, context)
-        headers = handler_response["headers"]
+
+        # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
+        # If you specify values for both headers and multiValueHeaders, API Gateway merges them into
+        # a single list. If the same key-value pair is specified in both, only the values from
+        # multiValueHeaders will appear in the merged list.
+        multi_value_headers = {
+            k: ",".join(v) for k, v in handler_response.get("multiValueHeaders", {}).items()
+        }
+        headers = {**handler_response.get("headers", {}), **multi_value_headers}
+
         status_code = handler_response["statusCode"]
-        body = (handler_response["body"].encode("utf-8"),)
+        body = handler_response["body"].encode("utf-8")
+        if handler_response["isBase64Encoded"]:
+            body = base64.b64decode(body)
+        if "Content-Encoding" in headers and "gzip" in headers["Content-Encoding"]:
+            body = gzip.decompress(body)
 
         return {
             "status_code": status_code,
             "headers": headers,
-            "body": body,
+            "body": (body,),
         }
 
 
