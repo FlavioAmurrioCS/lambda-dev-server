@@ -5,7 +5,7 @@
       "name": "Python Debugger: Module",
       "type": "debugpy",
       "request": "launch",
-      "module": "lambda_dev_server",
+      "module": "lambda_dev_server.__main__",
       "args": ["app.handler"]
     }
   ]
