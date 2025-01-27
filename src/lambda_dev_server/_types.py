@@ -104,7 +104,7 @@ if TYPE_CHECKING:
 
     # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
     class LambdaHttpResponse(TypedDict):
-        body: str
+        body: str | None
         statusCode: int
         isBase64Encoded: bool
         headers: NotRequired[MutableMapping[str, str]]
