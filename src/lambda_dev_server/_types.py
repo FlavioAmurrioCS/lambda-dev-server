@@ -93,6 +93,9 @@ if TYPE_CHECKING:
         # @property
         # def log_stream_name(self)-> str: ...
 
+    class LambdaHttpEventRequestContext(TypedDict):
+        path: str
+
     class LambdaHttpEvent(TypedDict):
         httpMethod: str
         path: str
@@ -101,6 +104,8 @@ if TYPE_CHECKING:
         headers: Mapping[str, str]
         queryStringParameters: Mapping[str, str]
         multiValueQueryStringParameters: Mapping[str, list[str]]
+        resource: NotRequired[str]
+        requestContext: NotRequired[LambdaHttpEventRequestContext]
 
     # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
     class LambdaHttpResponse(TypedDict):
