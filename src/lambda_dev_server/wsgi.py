@@ -34,6 +34,8 @@ class SimpleLambdaHandler(NamedTuple):
             "headers": event["headers"],
             "queryStringParameters": {k: v[-1] for k, v in event["params"].items()},
             "multiValueQueryStringParameters": event["params"],
+            "resource": event["url"],
+            "requestContext": {"path": event["url"]},
         }
         context = LambdaContextTuple()
         handler_response = self.handler(lambda_event, context)
