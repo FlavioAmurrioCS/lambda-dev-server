@@ -6,13 +6,8 @@ repos:
     hooks:
       - id: taplo-format
       - id: taplo-lint
-  - repo: https://github.com/asottile/reorder-python-imports
-    rev: v3.14.0
-    hooks:
-      - id: reorder-python-imports
-        args: [--py37-plus, --add-import, "from __future__ import annotations"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.7
+    rev: v0.11.11
     hooks:
       - id: ruff
         types_or: [python, pyi, jupyter]
@@ -32,8 +27,6 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies:
-          - types-requests
   - repo: local
     hooks:
       - id: hatch-test

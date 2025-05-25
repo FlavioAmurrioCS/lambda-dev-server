@@ -3,17 +3,18 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
     from collections.abc import Mapping
     from collections.abc import MutableMapping
-    from collections.abc import Iterator
-    from typing import Any, Iterable
-    from typing_extensions import TypedDict
+    from types import TracebackType
+    from typing import Any
+    from typing import Callable
+    from typing import Iterable
+
+    from typing_extensions import NotRequired
     from typing_extensions import Protocol
     from typing_extensions import TypeAlias
-    from typing_extensions import NotRequired
-    from typing import Callable
-
-    from types import TracebackType
+    from typing_extensions import TypedDict
 
     _ExcInfo: TypeAlias = "tuple[type[BaseException], BaseException, TracebackType]"
     _OptExcInfo: TypeAlias = "_ExcInfo | tuple[None, None, None]"

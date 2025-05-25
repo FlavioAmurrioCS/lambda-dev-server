@@ -2,17 +2,19 @@ from __future__ import annotations
 
 import base64
 import gzip
-from typing import NamedTuple
 from typing import TYPE_CHECKING
+from typing import NamedTuple
 
 from lambda_dev_server.simple_server import SimpleServer
 
-
 if TYPE_CHECKING:
-    from lambda_dev_server.simple_server import SimpleRequestEvent, SimpleResponseEvent
-    from lambda_dev_server._types import LambdaHttpResponse
     from typing import Callable
-    from lambda_dev_server._types import LambdaContextLike, LambdaHttpEvent
+
+    from lambda_dev_server._types import LambdaContextLike
+    from lambda_dev_server._types import LambdaHttpEvent
+    from lambda_dev_server._types import LambdaHttpResponse
+    from lambda_dev_server.simple_server import SimpleRequestEvent
+    from lambda_dev_server.simple_server import SimpleResponseEvent
 
 
 class LambdaContextTuple(NamedTuple):
