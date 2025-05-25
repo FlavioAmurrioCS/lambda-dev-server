@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "lambda-dev-server"
 dynamic = ["version"]
-description = 'A simple development server for AWS Lambda functions'
+description = "A simple development server for AWS Lambda functions"
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
