@@ -1,5 +1,11 @@
 ci:
-  skip: [hatch-*, taplo-lint]
+  skip:
+    - hatch-mypy
+    - hatch-pyrefly
+    - hatch-ty
+    - hatch-pyright
+    - hatch-test
+    - taplo-lint
 repos:
   - repo: https://github.com/ComPWA/mirrors-taplo
     rev: "v0.9.3"
