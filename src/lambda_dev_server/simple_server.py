@@ -2,18 +2,20 @@ from __future__ import annotations
 
 import logging
 from http import HTTPStatus
-from typing import NamedTuple
 from typing import TYPE_CHECKING
+from typing import NamedTuple
 from urllib.parse import parse_qs
 
 if TYPE_CHECKING:
+    from typing import Callable
+    from typing import Iterable
+    from typing import Literal
     from typing import MutableMapping
+    from typing import TypedDict
     from wsgiref.simple_server import WSGIServer
 
-    from typing import Callable, Iterable
-    from lambda_dev_server._types import StartResponse, Environ
-    from typing import TypedDict
-    from typing import Literal
+    from lambda_dev_server._types import Environ
+    from lambda_dev_server._types import StartResponse
 
     HTTP_METHOD = Literal["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS", "TRACE"]
 
@@ -28,6 +30,9 @@ if TYPE_CHECKING:
         status_code: int
         headers: MutableMapping[str, str]
         body: Iterable[bytes]
+
+
+logger = logging.getLogger(__name__)
 
 
 class SimpleServer(NamedTuple):
@@ -49,7 +54,7 @@ class SimpleServer(NamedTuple):
         body = environ["wsgi.input"].read(content_length)
 
         return {
-            "method": environ["REQUEST_METHOD"],  # type: ignore
+            "method": environ["REQUEST_METHOD"],  # type: ignore[typeddict-item]
             "url": environ["PATH_INFO"],
             "headers": headers,
             "params": parse_qs(environ["QUERY_STRING"]),
@@ -85,17 +90,17 @@ class SimpleServer(NamedTuple):
     def make_server(self, host: str = "127.0.0.1", port: int = 3000) -> WSGIServer:
         from wsgiref.simple_server import make_server
 
-        return make_server(host, port, self)  # type: ignore
+        return make_server(host, port, self)  # type: ignore[arg-type]
 
     def serve_forever(self, host: str = "127.0.0.1", port: int = 3000) -> None:
         with self.make_server(host, port) as httpd:
             sa = httpd.socket.getsockname()
             server_host, server_port = sa[0], sa[1]
-            logging.info("Running on http://%s:%d", server_host, server_port)
+            logger.info("Running on http://%s:%d", server_host, server_port)
             try:
                 httpd.serve_forever()
             except KeyboardInterrupt:
-                logging.info("Shutting down server")
+                logger.info("Shutting down server")
 
 
 if __name__ == "__main__":

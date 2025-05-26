@@ -4,6 +4,8 @@ import logging
 
 __HELPER_FILE_PREFIX = "__TEMP_LAMBDA_DEV_SERVER_HELPER_DO_NOT_CHECK_INTO_GIT__"
 
+logger = logging.getLogger(__name__)
+
 
 def _delete_helper_files() -> None:
     import os
@@ -16,10 +18,11 @@ def _delete_helper_files() -> None:
 
 
 def run_uvicorn(*, package: str, module: str, host: str, port: int) -> None:
-    import uvicorn
-    import tempfile
     import os
+    import tempfile
     from textwrap import dedent
+
+    import uvicorn
 
     _delete_helper_files()
 
@@ -45,8 +48,8 @@ def run_uvicorn(*, package: str, module: str, host: str, port: int) -> None:
 
 
 def run_wsgi(*, package: str, module: str, host: str, port: int) -> None:
-    from lambda_dev_server.wsgi import SimpleLambdaHandler
     from lambda_dev_server.simple_server import SimpleServer
+    from lambda_dev_server.wsgi import SimpleLambdaHandler
 
     mod = __import__(package, fromlist=["_trash"])
     handler = getattr(mod, module)
@@ -60,8 +63,8 @@ prog = None
 
 def main(argv: list[str] | tuple[str, ...] | None = None) -> int:
     import argparse
-    import sys
     import os
+    import sys
 
     parser = argparse.ArgumentParser(
         prog=prog, description="Run a local server to test AWS Lambda functions."
@@ -89,18 +92,23 @@ def main(argv: list[str] | tuple[str, ...] | None = None) -> int:
     try:
         run_uvicorn(package=package, module=module, host=host, port=port)
     except ModuleNotFoundError:
-        logging.info("uvicorn not found, falling back to wsgiref")
-        logging.info("Install uvicorn for hot-reloading support")
+        logger.info("uvicorn not found, falling back to wsgiref")
+        logger.info("Install uvicorn for hot-reloading support")
     else:
         return 0
     try:
         run_wsgi(package=package, module=module, host=host, port=port)
     except KeyboardInterrupt:
-        logging.info("Shutting down...")
+        logger.info("Shutting down...")
 
     return 0
 
 
 if __name__ == "__main__":
     prog = "python3 -m lambda_dev_server"
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s",
+    )
+
     raise SystemExit(main())
