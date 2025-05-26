@@ -14,8 +14,9 @@ if TYPE_CHECKING:
     from typing import TypedDict
     from wsgiref.simple_server import WSGIServer
 
+    from _typeshed.wsgi import StartResponse
+
     from lambda_dev_server._types import Environ
-    from lambda_dev_server._types import StartResponse
 
     HTTP_METHOD = Literal["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS", "TRACE"]
 
@@ -101,21 +102,3 @@ class SimpleServer(NamedTuple):
                 httpd.serve_forever()
             except KeyboardInterrupt:
                 logger.info("Shutting down server")
-
-
-if __name__ == "__main__":
-    import httpx
-
-    client = httpx.Client()
-    client.base_url = "http://ip.jsontest.com"
-
-    def request_handler(event: SimpleRequestEvent) -> SimpleResponseEvent:
-        response = client.request(**event)
-        return {
-            "status_code": response.status_code,
-            "headers": response.headers,
-            "body": response.iter_bytes(),
-        }
-
-    server = SimpleServer(request_handler)
-    server.serve_forever()
