@@ -26,16 +26,22 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+]
 
 [project.optional-dependencies]
-types = [
-  "httpx",
-  "typing-extensions",
+tests = [
+  "pytest",
+  "tomli ; python_version < '3.11'",
   "uvicorn",
 ]
-tests = [
-  "lambda-dev-server[types]",
+types = [
+  "lambda-dev-server[tests]",
+  "typing-extensions",
+  "mypy",
+  "pyrefly",
+  "pyright[nodejs]",
+  "ty",
 ]
 
 [project.urls]
