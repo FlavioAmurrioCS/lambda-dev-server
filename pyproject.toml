@@ -26,16 +26,22 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+]
 
 [project.optional-dependencies]
-types = [
-  "httpx",
-  "typing-extensions",
+tests = [
+  "pytest",
+  "tomli ; python_version < '3.11'",
   "uvicorn",
 ]
-tests = [
-  "lambda-dev-server[types]",
+types = [
+  "lambda-dev-server[tests]",
+  "typing-extensions",
+  "mypy",
+  "pyrefly",
+  "pyright[nodejs]",
+  "ty",
 ]
 
 [project.urls]
@@ -147,13 +153,14 @@ select = [
   "ALL",
 ]
 ignore = [
-  "COM812", # missing-trailing-comma
-  "D",      # pydocstyle
-  "ERA001", # commented-out-code
-  "EXE003", # shebang-missing-python
-  "ISC001", # single-line-implicit-string-concatenation
-  "PTH",    # flake8-use-pathlib
-  "T20",    # flake8-print
+  "COM812",  # missing-trailing-comma
+  "D",       # pydocstyle
+  "ERA001",  # commented-out-code
+  "EXE003",  # shebang-missing-python
+  "ISC001",  # single-line-implicit-string-concatenation
+  "PTH",     # flake8-use-pathlib
+  "T20",     # flake8-print
+  "PLC0415", # import-outside-top-level
 ]
 
 [tool.ruff.format]

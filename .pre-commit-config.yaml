@@ -1,5 +1,11 @@
 ci:
-  skip: [hatch-test, taplo-lint]
+  skip:
+    - hatch-mypy
+    - hatch-pyrefly
+    - hatch-ty
+    - hatch-pyright
+    - hatch-test
+    - taplo-lint
 repos:
   - repo: https://github.com/ComPWA/mirrors-taplo
     rev: "v0.9.3"
@@ -7,7 +13,7 @@ repos:
       - id: taplo-format
       - id: taplo-lint
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.11
+    rev: v0.12.2
     hooks:
       - id: ruff-check
         types_or: [python, pyi, jupyter]
@@ -24,15 +30,45 @@ repos:
       - id: name-tests-test
       - id: requirements-txt-fixer
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.16.1
     hooks:
       - id: mypy
   - repo: local
     hooks:
+      - id: hatch-mypy
+        name: hatch-mypy
+        entry: hatch run types:check
+        language: python
+        'types_or': [python, pyi]
+        require_serial: true
+        additional_dependencies: [hatch]
+      - id: hatch-pyrefly
+        name: hatch-pyrefly
+        entry: hatch run types:pyrefly check
+        language: python
+        'types_or': [python, pyi]
+        require_serial: true
+        additional_dependencies: [hatch]
+      - id: hatch-ty
+        name: hatch-ty
+        entry: hatch run types:ty check
+        language: python
+        'types_or': [python, pyi]
+        require_serial: true
+        additional_dependencies: [hatch]
+        stages: [manual]
+      - id: hatch-pyright
+        name: hatch-pyright
+        entry: hatch run types:pyright
+        language: python
+        'types_or': [python, pyi]
+        require_serial: true
+        additional_dependencies: [hatch]
       - id: hatch-test
         name: hatch-test
         entry: env HATCH_ENV_TYPE_VIRTUAL_PATH= hatch test --parallel --all
         language: python
-        additional_dependencies: [hatch>=1.12.0]
+        types: [python]
         pass_filenames: false
         always_run: true
+        additional_dependencies: [hatch]
