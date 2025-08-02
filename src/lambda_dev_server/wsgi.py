@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import base64
 import gzip
+import json
+import logging
 from typing import TYPE_CHECKING
 from typing import NamedTuple
 
@@ -15,6 +17,8 @@ if TYPE_CHECKING:
     from lambda_dev_server._types import LambdaHttpResponse
     from lambda_dev_server.simple_server import SimpleRequestEvent
     from lambda_dev_server.simple_server import SimpleResponseEvent
+
+logger = logging.getLogger(__name__)
 
 
 class LambdaContextTuple(NamedTuple):
@@ -40,6 +44,7 @@ class SimpleLambdaHandler(NamedTuple):
             "requestContext": {"path": event["url"]},
         }
         context = LambdaContextTuple()
+        logger.info("Lambda event: %s", json.dumps(lambda_event, indent=2))
         handler_response = self.handler(lambda_event, context)
 
         # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format

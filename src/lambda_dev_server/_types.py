@@ -3,33 +3,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
     from collections.abc import Mapping
     from collections.abc import MutableMapping
-    from types import TracebackType
-    from typing import Any
-    from typing import Callable
-    from typing import Iterable
 
+    from _typeshed.wsgi import ErrorStream
+    from _typeshed.wsgi import InputStream
     from typing_extensions import NotRequired
     from typing_extensions import Protocol
-    from typing_extensions import TypeAlias
     from typing_extensions import TypedDict
-
-    _ExcInfo: TypeAlias = "tuple[type[BaseException], BaseException, TracebackType]"
-    _OptExcInfo: TypeAlias = "_ExcInfo | tuple[None, None, None]"
-
-    class StartResponse(Protocol):
-        def __call__(
-            self,
-            status: str,
-            headers: list[tuple[str, str]],
-            exc_info: _OptExcInfo | None = ...,
-            /,
-        ) -> Callable[[bytes], object]: ...
-
-    WSGIEnvironment: TypeAlias = "dict[str, Any]"
-    WSGIApplication: TypeAlias = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]
 
     Environ = TypedDict(
         "Environ",
@@ -39,10 +20,10 @@ if TYPE_CHECKING:
             "PATH_INFO": str,
             "QUERY_STRING": str,
             "SERVER_PROTOCOL": str,
-            "wsig.version": tuple[int, int],  # type: ignore[misc]
+            "wsig.version": tuple[int, int],
             "wsgi.url_scheme": str,
-            "wsgi.input": "InputStream",
-            "wsgi.errors": "ErrorStream",
+            "wsgi.input": InputStream,
+            "wsgi.errors": ErrorStream,
             "wsgi.multithread": bool,
             "wsgi.multiprocess": bool,
             "wsgi.run_once": bool,
@@ -51,30 +32,6 @@ if TYPE_CHECKING:
             "REMOTE_ADDR": str,
         },
     )
-
-    class InputStream(Protocol):
-        def read(self, size: int = ..., /) -> bytes: ...
-        def readline(self, size: int = ..., /) -> bytes: ...
-        def readlines(self, hint: int = ..., /) -> list[bytes]: ...
-        def __iter__(self) -> Iterator[bytes]: ...
-
-    class ErrorStream(Protocol):
-        def flush(self) -> object: ...
-        def write(self, s: str, /) -> object: ...
-        def writelines(self, seq: list[str], /) -> object: ...
-
-    class _Readable(Protocol):
-        def read(self, size: int = ..., /) -> bytes: ...
-
-        # Optional: def close(self) -> object: ...
-
-    class FileWrapper(Protocol):
-        def __call__(
-            self,
-            file: _Readable,
-            block_size: int = ...,
-            /,
-        ) -> Iterable[bytes]: ...
 
     ################################################################
     class LambdaContextLike(Protocol):

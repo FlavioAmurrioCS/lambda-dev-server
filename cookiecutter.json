@@ -1,8 +1,9 @@
 {
   "project_name": "lambda-dev-server",
-  "project_slug": "lambda_dev_server",
+  "package_name": "lambda-dev-server",
+  "module_name": "lambda_dev_server",
   "project_short_description": "A simple development server for AWS Lambda functions",
-  "minimum_python_version": "3.8",
+  "minimum_python_version": "3.9",
   "full_name": "Flavio Amurrio",
   "email": "25621374+FlavioAmurrioCS@users.noreply.github.com",
   "github_username": "FlavioAmurrioCS"
