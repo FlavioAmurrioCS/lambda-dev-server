@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
+
 class LambdaContextTuple(NamedTuple):
     aws_request_id: str = "aws_request_id"
     function_name: str = "function_name"
