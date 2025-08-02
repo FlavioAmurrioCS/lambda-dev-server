@@ -1,5 +1,6 @@
 ci:
   skip:
+    - uv-lock
     - taplo-lint
     - uv-mypy
     - uv-pyrefly
