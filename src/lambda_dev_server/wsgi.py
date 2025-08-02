@@ -44,7 +44,7 @@ class SimpleLambdaHandler(NamedTuple):
             "requestContext": {"path": event["url"]},
         }
         context = LambdaContextTuple()
-        logger.debug("Lambda event: %s", json.dumps(lambda_event, indent=2))
+        logger.info("Lambda event: %s", json.dumps(lambda_event, indent=2))
         handler_response = self.handler(lambda_event, context)
 
         # https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-output-format
