@@ -20,7 +20,7 @@ if TYPE_CHECKING:
             "PATH_INFO": str,
             "QUERY_STRING": str,
             "SERVER_PROTOCOL": str,
-            "wsig.version": tuple[int, int],  # type: ignore[misc]
+            "wsig.version": tuple[int, int],
             "wsgi.url_scheme": str,
             "wsgi.input": InputStream,
             "wsgi.errors": ErrorStream,

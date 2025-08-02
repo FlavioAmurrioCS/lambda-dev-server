@@ -7,7 +7,7 @@ name = "lambda-dev-server"
 dynamic = ["version"]
 description = "A simple development server for AWS Lambda functions"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = "MIT"
 keywords = ['aws', 'lambda', 'server', 'development']
 authors = [
@@ -16,7 +16,6 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -77,7 +76,6 @@ check = "mypy --install-types --non-interactive {args:src/lambda_dev_server test
 
 [[tool.hatch.envs.hatch-test.matrix]]
 python = [
-  "3.8",
   "3.9",
   "3.10",
   "3.11",
@@ -126,7 +124,7 @@ exclude_lines = [
 # region: pyright
 ###############################################################################
 [tool.pyright]
-pythonVersion = "3.8"
+pythonVersion = "3.9"
 ###############################################################################
 # endregion: pyright
 ###############################################################################
@@ -135,7 +133,7 @@ pythonVersion = "3.8"
 # region: mypy
 ###############################################################################
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true

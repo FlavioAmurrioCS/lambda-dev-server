@@ -178,5 +178,5 @@ temp/
 .DS_Store
 *.dist-info/
 
-requirements.txt
 uv.lock
+requirements.txt

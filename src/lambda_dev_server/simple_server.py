@@ -7,10 +7,10 @@ from typing import NamedTuple
 from urllib.parse import parse_qs
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import MutableMapping
     from typing import Callable
-    from typing import Iterable
     from typing import Literal
-    from typing import MutableMapping
     from typing import TypedDict
     from wsgiref.simple_server import WSGIServer
 
