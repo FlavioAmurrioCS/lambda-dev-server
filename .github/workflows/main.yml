@@ -15,4 +15,5 @@ jobs:
     secrets:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     with:
+      env: '["3.9", "3.10", "3.11", "3.12", "pypy3.9"]'
       zipapp-entrypoint: lambda-dev-server
