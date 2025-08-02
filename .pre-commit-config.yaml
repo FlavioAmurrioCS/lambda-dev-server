@@ -1,11 +1,11 @@
-# ci:
-#   skip:
-#     - taplo-lint
-#     - uv-mypy
-#     - uv-pyrefly
-#     - uv-pyright
-#     - uv-test
-#     - uv-ty
+ci:
+  skip:
+    - taplo-lint
+    - uv-mypy
+    - uv-pyrefly
+    - uv-ty
+    - uv-pyright
+    - uv-test
 repos:
   - repo: https://github.com/astral-sh/uv-pre-commit
     rev: 0.8.4
