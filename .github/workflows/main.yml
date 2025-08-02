@@ -45,11 +45,31 @@ jobs:
           name: python-package-distributions
           path: dist/
 
+  build:
+    name: Build distribution 📦
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v6
+
+      - name: Build package
+        run: uv build
+
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
   publish-to-pypi:
     name: upload release to PyPI
     if: ${{ startsWith(github.ref, 'refs/tags/') }} # only publish to PyPI on tag pushes
     needs:
-      - test
+      - build
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -68,7 +88,7 @@ jobs:
     name: Sign the Python 🐍 distribution 📦 with Sigstore and upload them to GitHub Release
     if: ${{ startsWith(github.ref, 'refs/tags/') }} # only publish to GitHub Releases on tag pushes
     needs:
-      - publish-to-pypi
+      - build
     runs-on: ubuntu-latest
 
     permissions:
