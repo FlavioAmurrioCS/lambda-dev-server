@@ -74,6 +74,17 @@ extra-dependencies = [
 
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/lambda_dev_server tests}"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = [
+  "3.8",
+  "3.9",
+  "3.10",
+  "3.11",
+  "3.12",
+  "3.13",
+  "3.14",
+]
 ###############################################################################
 # endregion: hatch
 ###############################################################################
