@@ -36,15 +36,6 @@ jobs:
       - name: Run tests
         run: uv run pytest tests
 
-      - name: Build package
-        run: uv build
-
-      - name: Store the distribution packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-package-distributions
-          path: dist/
-
   build:
     name: Build distribution 📦
     needs:
