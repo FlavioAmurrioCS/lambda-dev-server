@@ -58,7 +58,7 @@ class SimpleLambdaHandler(NamedTuple):
 
         status_code = handler_response["statusCode"]
         body = (handler_response.get("body") or "").encode("utf-8")
-        if handler_response["isBase64Encoded"]:
+        if handler_response.get("isBase64Encoded"):
             body = base64.b64decode(body)
         if "Content-Encoding" in headers and "gzip" in headers["Content-Encoding"]:
             body = gzip.decompress(body)
