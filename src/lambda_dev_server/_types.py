@@ -69,7 +69,7 @@ if TYPE_CHECKING:
     class LambdaHttpResponse(TypedDict):
         body: str | None
         statusCode: int
-        isBase64Encoded: bool
+        isBase64Encoded: NotRequired[bool]
         headers: NotRequired[MutableMapping[str, str]]
         multiValueHeaders: NotRequired[MutableMapping[str, list[str]]]
 
